@@ -10,8 +10,9 @@ import { RouterLink } from 'vue-router';
 import VehicleIcon from '@/components/common/VehicleIcon.vue';
 import VehicleStatusTag from '@/components/common/VehicleStatusTag.vue';
 
-const { vehicle } = defineProps<{
+const { vehicle, showHistoryLink } = defineProps<{
   vehicle: Vehicle;
+  showHistoryLink: boolean;
 }>();
 
 // Validate vehicle has location
@@ -72,6 +73,9 @@ const vehicleMarker = computed(() => {
       </div>
     `,
     className: 'vehicle-marker',
+    iconSize: [32, 60],
+    iconAnchor: [16, 60],
+    popupAnchor: [0, -60],
   });
 });
 </script>
@@ -120,7 +124,7 @@ const vehicleMarker = computed(() => {
           </span>
         </div>
 
-        <RouterLink :to="`/route/${vehicle.id}`">
+        <RouterLink :to="`/route/${vehicle.id}`" v-if="showHistoryLink">
           <Button class="mt-2 w-full cursor-pointer hover:bg-gray-700" size="sm"
             >View History</Button
           >

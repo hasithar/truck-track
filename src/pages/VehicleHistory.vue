@@ -19,7 +19,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { mapConfig } from '@/config';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 import {
   Stepper,
@@ -31,71 +31,128 @@ import {
   StepperTrigger,
 } from '@/components/ui/stepper';
 import { useRoute } from 'vue-router';
+import { useVehicleStore } from '@/store';
+import { storeToRefs } from 'pinia';
 // Map state
 const zoom = ref(12);
 const center = ref<[number, number]>([mapConfig.base.lat, mapConfig.base.lng]);
 
 const route = useRoute();
 const vehicleId = route.params.id;
+
+const vehicleStore = useVehicleStore();
+const { vehicles } = storeToRefs(vehicleStore);
+
+const vehicle = computed(() => vehicles.value.find((v) => v.id === vehicleId));
+console.log('🚀 ~ vehicle:', vehicle);
+
+const steps = [
+  {
+    step: 1,
+    title: 'Your details',
+    description:
+      'Provide your name and email address. We will use this information to create your account',
+  },
+  {
+    step: 2,
+    title: 'Company details',
+    description:
+      'A few details about your company will help us personalize your experience',
+  },
+  {
+    step: 3,
+    title: 'Invite your team',
+    description:
+      'Start collaborating with your team by inviting them to join your account. You can skip this step and invite them later',
+  },
+];
 </script>
 
 <template>
-  <Card class="w-[350px]">
-    <CardHeader>
-      <CardTitle>Create project {{ vehicleId }}</CardTitle>
-      <CardDescription>Deploy your new project in one-click.</CardDescription>
-    </CardHeader>
-    <CardContent>
-      <form>
-        <div class="grid items-center w-full gap-4">
-          <div class="flex flex-col space-y-1.5">
-            <Label for="name">Name</Label>
-            <Input id="name" placeholder="Name of your project" />
-          </div>
-          <div class="flex flex-col space-y-1.5">
-            <Label for="framework">Framework</Label>
-            <Select>
-              <SelectTrigger id="framework">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent position="popper">
-                <SelectItem value="nuxt"> Nuxt </SelectItem>
-                <SelectItem value="next"> Next.js </SelectItem>
-                <SelectItem value="sveltekit"> SvelteKit </SelectItem>
-                <SelectItem value="astro"> Astro </SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-      </form>
-    </CardContent>
-    <CardFooter class="flex justify-between px-6 pb-6">
-      <Button variant="outline"> Cancel </Button>
-      <Button>Deploy</Button>
-    </CardFooter>
-  </Card>
+  <div class="flex gap-4">
+    <div class="w-1/4">
+      <div>
+        <Card class="w-[350px]">
+          <CardHeader>
+            <CardTitle>Create project {{ vehicleId }}</CardTitle>
+            <CardDescription
+              >Deploy your new project in one-click.</CardDescription
+            >
+          </CardHeader>
+          <CardContent> </CardContent>
+          <CardFooter class="flex justify-between px-6 pb-6">
+            <Button variant="outline"> Cancel </Button>
+            <Button>Deploy</Button>
+          </CardFooter>
+        </Card>
+      </div>
 
-  <div>
-    <Stepper>
-      <StepperItem :step="1">
-        <StepperTrigger>
-          <StepperIndicator>1</StepperIndicator>
-          <StepperTitle>Step 1</StepperTitle>
-          <StepperDescription>This is the first step</StepperDescription>
-        </StepperTrigger>
-        <StepperSeparator />
-      </StepperItem>
-      <StepperItem :step="2">
-        <StepperTrigger>
-          <StepperIndicator>2</StepperIndicator>
-          <StepperTitle>Step 2</StepperTitle>
-          <StepperDescription>This is the second step</StepperDescription>
-        </StepperTrigger>
-      </StepperItem>
-    </Stepper>
-  </div>
+      <div>
+        <Stepper
+          orientation="vertical"
+          class="mx-auto flex w-full max-w-md flex-col justify-start gap-10"
+        >
+          <StepperItem
+            v-for="step in steps"
+            :key="step.step"
+            v-slot="{ state }"
+            class="relative flex w-full items-start gap-6"
+            :step="step.step"
+          >
+            <StepperSeparator
+              v-if="step.step !== steps[steps.length - 1].step"
+              class="absolute left-[18px] top-[38px] block h-[105%] w-0.5 shrink-0 rounded-full bg-muted group-data-[state=completed]:bg-primary"
+            />
 
-  <div class="w-full h-screen">
-    <RouteMap :zoom="zoom" :center="center" />
+            <StepperTrigger as-child>
+              <Button
+                :variant="
+                  state === 'completed' || state === 'active'
+                    ? 'default'
+                    : 'outline'
+                "
+                size="icon"
+                class="z-10 rounded-full shrink-0"
+                :class="[
+                  state === 'active' &&
+                    'ring-2 ring-ring ring-offset-2 ring-offset-background',
+                ]"
+              >
+                <Check v-if="state === 'completed'" class="size-5" />
+                <Circle v-if="state === 'active'" />
+                <Dot v-if="state === 'inactive'" />
+              </Button>
+            </StepperTrigger>
+
+            <div class="flex flex-col gap-1">
+              <StepperTitle
+                :class="[state === 'active' && 'text-primary']"
+                class="text-sm font-semibold transition lg:text-base"
+              >
+                {{ step.title }}
+              </StepperTitle>
+              <StepperDescription
+                :class="[state === 'active' && 'text-primary']"
+                class="sr-only text-xs text-muted-foreground transition md:not-sr-only lg:text-sm"
+              >
+                {{ step.description }}
+              </StepperDescription>
+            </div>
+          </StepperItem>
+        </Stepper>
+      </div>
+    </div>
+
+    <div class="w-3/4">
+      <div class="w-full h-dvh rounded-2xl overflow-hidden">
+        <RouteMap
+          :zoom="zoom"
+          :center="center"
+          :vehicle="vehicle"
+          v-if="vehicle"
+        />
+        <div v-else>Vehicle not Found</div>
+      </div>
+    </div>
   </div>
 </template>

@@ -3,31 +3,28 @@ import 'leaflet/dist/leaflet.css';
 import { computed, watch, ref } from 'vue';
 import { LMap, LTileLayer, LPolyline } from '@vue-leaflet/vue-leaflet';
 import { mapConfig } from '@/config';
-import type { Location, Vehicle } from '@/types';
+import type { Vehicle } from '@/types';
 import VehicleMarker from './mapui/VehicleMarker.vue';
 
-// const { zoom, center, vehicles, bounds } = defineProps<{
-//   zoom: number;
-//   center: [number, number];
-//   vehicles: Vehicle[];
-//   bounds: Location[];
-// }>();
-const { zoom, center } = defineProps<{
+const { zoom, center, vehicle } = defineProps<{
   zoom: number;
   center: [number, number];
+  vehicle: Vehicle;
 }>();
 
 // Get map
 const mapRef = ref<InstanceType<typeof LMap> | null>(null);
 
 // Create latlng pairs from bounds
-// const boundsArray = computed(() =>
-//   bounds.map((loc) => [loc.lat, loc.lng] as [number, number])
-// );
+const pointsArray = computed(() =>
+  vehicle.history.map(
+    (entry) => [entry.location.lat, entry.location.lng] as [number, number]
+  )
+);
 
-// Watch for changes in boudsArray
+// Watch for changes in pointsArray - disabled to stop interfierring with zoom/pan
 // watch(
-//   boundsArray,
+//   pointsArray,
 //   (newBounds) => {
 //     if (mapRef.value && newBounds.length > 0) {
 //       mapRef.value.leafletObject?.fitBounds(newBounds);
@@ -35,19 +32,6 @@ const mapRef = ref<InstanceType<typeof LMap> | null>(null);
 //   },
 //   { immediate: true }
 // );
-
-const history = [
-  { lat: 24.4539, lng: 54.3773 },
-  { lat: 24.4545, lng: 54.3785 },
-  { lat: 24.455, lng: 54.3795 },
-  { lat: 24.456, lng: 54.379 },
-  { lat: 24.4575, lng: 54.378 },
-  { lat: 24.458, lng: 54.377 },
-  { lat: 24.459, lng: 54.3765 },
-  { lat: 24.46, lng: 54.3775 },
-  { lat: 24.461, lng: 54.3785 },
-  { lat: 24.462, lng: 54.3795 },
-];
 </script>
 
 <template>
@@ -56,30 +40,24 @@ const history = [
       style="height: 100%; width: 100%"
       ref="mapRef"
       :zoom="zoom"
-      :center="center"
+      :center="
+        vehicle.location ? [vehicle.location.lat, vehicle.location.lng] : center
+      "
       :use-global-leaflet="false"
     >
-      <!-- <LMap
-      style="height: 100%; width: 100%"
-      ref="mapRef"
-      :zoom="zoom"
-      :center="center"
-      :bounds="boundsArray"
-      :use-global-leaflet="false"
-    > -->
       <LTileLayer
         :url="mapConfig.tileUrl"
         :attribution="mapConfig.attribution"
       />
       <LPolyline
-        v-if="history && history.length > 1"
-        :lat-lngs="history.map((loc) => [loc.lat, loc.lng])"
+        v-if="pointsArray && pointsArray.length > 1"
+        :lat-lngs="[...pointsArray, vehicle.location]"
         :color="'blue'"
         :weight="4"
         :opacity="0.7"
       />
 
-      <!-- <VehicleMarker v-for="v in vehicles" :key="v.id" :vehicle="v" /> -->
+      <VehicleMarker :vehicle="vehicle" :show-history-link="false" />
     </LMap>
   </div>
 </template>

@@ -47,7 +47,12 @@ watch(
         :url="mapConfig.tileUrl"
         :attribution="mapConfig.attribution"
       />
-      <VehicleMarker v-for="v in vehicles" :key="v.id" :vehicle="v" />
+      <VehicleMarker
+        v-for="v in vehicles"
+        :key="v.id"
+        :vehicle="v"
+        :show-history-link="true"
+      />
     </LMap>
   </div>
 </template>
