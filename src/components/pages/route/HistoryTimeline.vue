@@ -1,67 +1,26 @@
 <script setup lang="ts">
-import RouteMap from '@/components/maps/RouteMap.vue';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { mapConfig } from '@/config';
-import { computed, ref } from 'vue';
-
 import {
   Stepper,
   StepperDescription,
-  StepperIndicator,
   StepperItem,
-  StepperSeparator,
   StepperTitle,
   StepperTrigger,
 } from '@/components/ui/stepper';
-import { useRoute } from 'vue-router';
-import { useVehicleStore } from '@/store';
-import { storeToRefs } from 'pinia';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import type { LocationEntry } from '@/types';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Separator } from '@/components/ui/separator';
+import { DateTime } from 'luxon';
+import { MapPin } from 'lucide-vue-next';
 
 const { history } = defineProps<{
   history: LocationEntry[];
 }>();
-console.log('🚀 ~ history:', history);
-
-const steps = [
-  {
-    step: 1,
-    title: 'Your details',
-    description:
-      'Provide your name and email address. We will use this information to create your account',
-  },
-  {
-    step: 2,
-    title: 'Company details',
-    description:
-      'A few details about your company will help us personalize your experience',
-  },
-  {
-    step: 3,
-    title: 'Invite your team',
-    description:
-      'Start collaborating with your team by inviting them to join your account. You can skip this step and invite them later',
-  },
-];
 </script>
 
 <template>
@@ -71,7 +30,7 @@ const steps = [
 
       <Stepper
         orientation="vertical"
-        class="mx-auto flex w-full max-w-md flex-col justify-start gap-5 pl-1"
+        class="mx-auto flex w-full max-w-md flex-col justify-start gap-8 pl-1"
       >
         <StepperItem
           v-for="(entry, index) in history"
@@ -80,7 +39,7 @@ const steps = [
           :step="index"
         >
           <div
-            class="absolute left-[3px] top-[5px] block h-[130%] w-0.5 shrink-0 rounded-full bg-slate-300"
+            class="absolute left-[3px] top-[5px] block h-[160%] w-0.5 shrink-0 rounded-full bg-slate-300"
             v-if="index !== history.length - 1"
           />
 
@@ -96,12 +55,36 @@ const steps = [
 
           <div class="flex flex-col gap-1 -mt-2.5">
             <StepperTitle class="text-sm font-semibold transition lg:text-base">
-              {{ entry.timestamp }}
+              {{
+                DateTime.fromISO(entry.timestamp).toFormat(
+                  'dd LLL yyyy, hh:mm:ss a'
+                )
+              }}
             </StepperTitle>
             <StepperDescription
               class="sr-only text-xs text-muted-foreground transition md:not-sr-only lg:text-sm"
             >
-              {{ entry.location.lat }}
+              <span class="flex text-xs gap-1 items-center">
+                <MapPin class="size-4 pl-0.5" />
+                <span>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <span class="flex gap-2">
+                          <span><em>Lat: </em>{{ entry.location.lat }}</span>
+                          <span><em>Lat: </em>{{ entry.location.lat }}</span>
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <span
+                          >Lat: {{ entry.location.lat }} <br />Lng:
+                          {{ entry.location.lng }}</span
+                        >
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </span>
+              </span>
             </StepperDescription>
           </div>
         </StepperItem>

@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import 'leaflet/dist/leaflet.css';
 import { computed, watch, ref } from 'vue';
-import { LMap, LTileLayer, LPolyline } from '@vue-leaflet/vue-leaflet';
+import {
+  LMap,
+  LTileLayer,
+  LPolyline,
+  LMarker,
+  LTooltip,
+} from '@vue-leaflet/vue-leaflet';
 import { mapConfig } from '@/config';
 import type { Vehicle } from '@/types';
 import VehicleMarker from './mapui/VehicleMarker.vue';
@@ -22,7 +28,7 @@ const pointsArray = computed(() =>
   )
 );
 
-// Watch for changes in pointsArray - disabled to stop interfierring with zoom/pan
+// Watch for changes in pointsArray - disabled to stop interfiering with zoom/pan
 // watch(
 //   pointsArray,
 //   (newBounds) => {
@@ -52,12 +58,31 @@ const pointsArray = computed(() =>
       <LPolyline
         v-if="pointsArray && pointsArray.length > 1"
         :lat-lngs="[...pointsArray, vehicle.location]"
-        :color="'blue'"
-        :weight="4"
+        :color="vehicle.status === 'online' ? 'green' : 'red'"
+        :weight="3"
         :opacity="0.7"
       />
 
+      <!-- Vehicle current position -->
       <VehicleMarker :vehicle="vehicle" :show-history-link="false" />
+
+      <!-- Vehicle start position -->
+      <LMarker
+        v-if="vehicle.history.length > 0"
+        :lat-lng="[
+          vehicle.history[0].location.lat,
+          vehicle.history[0].location.lng,
+        ]"
+      >
+        <LTooltip
+          :sticky="true"
+          :interactive="true"
+          :offset="[0, -10]"
+          direction="top"
+        >
+          Origin
+        </LTooltip>
+      </LMarker>
     </LMap>
   </div>
 </template>
