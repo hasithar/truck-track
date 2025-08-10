@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, computed, onBeforeMount } from 'vue';
+import { ref, watch, computed, onBeforeMount, onMounted } from 'vue';
 import { useVehicleStore } from '@/store';
 import { storeToRefs } from 'pinia';
 import LocationMap from '@/components/maps/LocationMap.vue';
@@ -12,6 +12,7 @@ const center = ref<[number, number]>([mapConfig.base.lat, mapConfig.base.lng]);
 // Setup store
 const vehicleStore = useVehicleStore();
 const { vehicles } = storeToRefs(vehicleStore);
+console.log('🚀 ~ vehicles:', vehicles.value);
 
 // Generate mock vehicle data before rendering
 onBeforeMount(() => {
@@ -34,6 +35,11 @@ watch(
   },
   { immediate: true }
 );
+
+// Start movement simu;ation
+onMounted(() => {
+  vehicleStore.simulateMovement();
+});
 </script>
 
 <template>

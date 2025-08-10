@@ -41,6 +41,10 @@ const data = {
           title: 'List',
           url: '/list',
         },
+        {
+          title: 'Route',
+          url: '/route',
+        },
       ],
     },
   ],

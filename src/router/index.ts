@@ -8,7 +8,12 @@ import VehicleListPage from '@/pages/VehicleList.vue';
 const routes = [
   { path: '/', component: DashboardPage, name: 'Dashboard' },
   { path: '/about', component: AboutPage, name: 'About' },
-  { path: '/route', component: VehicleHistoryPage, name: 'Vehicle History' },
+  {
+    path: '/route/:id',
+    component: VehicleHistoryPage,
+    name: 'Vehicle Route History',
+    props: true,
+  },
   { path: '/list', component: VehicleListPage, name: 'All Vehicles' },
 ];
 

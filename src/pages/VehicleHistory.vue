@@ -30,15 +30,19 @@ import {
   StepperTitle,
   StepperTrigger,
 } from '@/components/ui/stepper';
+import { useRoute } from 'vue-router';
 // Map state
 const zoom = ref(12);
 const center = ref<[number, number]>([mapConfig.base.lat, mapConfig.base.lng]);
+
+const route = useRoute();
+const vehicleId = route.params.id;
 </script>
 
 <template>
   <Card class="w-[350px]">
     <CardHeader>
-      <CardTitle>Create project</CardTitle>
+      <CardTitle>Create project {{ vehicleId }}</CardTitle>
       <CardDescription>Deploy your new project in one-click.</CardDescription>
     </CardHeader>
     <CardContent>

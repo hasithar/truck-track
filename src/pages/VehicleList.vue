@@ -14,12 +14,19 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import Button from '@/components/ui/button/Button.vue';
-import { Truck, Car, Bus, Box } from 'lucide-vue-next';
+import { Truck, Car, Bus, Box, MapPin } from 'lucide-vue-next';
 import { useVehicleStore } from '@/store';
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 import VehicleIcon from '@/components/common/VehicleIcon.vue';
+import VehicleStatusTag from '@/components/common/VehicleStatusTag.vue';
 
 // Setup store
 const vehicleStore = useVehicleStore();
@@ -42,7 +49,7 @@ const { vehicles } = storeToRefs(vehicleStore);
             <TableHead>Plate</TableHead>
             <TableHead>Vehicle Name</TableHead>
             <TableHead>Vehicle Type</TableHead>
-            <TableHead>Status</TableHead>
+            <TableHead class="w-[100px]">Status</TableHead>
             <TableHead>Last Location</TableHead>
             <TableHead>Last Updated</TableHead>
             <TableHead>Actions</TableHead>
@@ -56,8 +63,38 @@ const { vehicles } = storeToRefs(vehicleStore);
             <TableCell>
               <VehicleIcon :type="vehicle.type" :show-name="true" />
             </TableCell>
-            <TableCell>{{ vehicle.status }}</TableCell>
-            <TableCell>{{ vehicle.location }}</TableCell>
+            <TableCell>
+              <VehicleStatusTag :status="vehicle.status" />
+            </TableCell>
+            <TableCell>
+              <span class="flex text-xs gap-1 items-center">
+                <MapPin class="size-4 pl-0.5" />
+                <span>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <span class="flex gap-2">
+                          <span
+                            ><em>Lat: </em
+                            >{{ vehicle.location.lat.toFixed(6) }}...</span
+                          >
+                          <span
+                            ><em>Lat: </em
+                            >{{ vehicle.location.lat.toFixed(6) }}...</span
+                          >
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <span
+                          >Lat: {{ vehicle.location.lat }} <br />Lng:
+                          {{ vehicle.location.lng }}</span
+                        >
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </span>
+              </span>
+            </TableCell>
             <TableCell>{{ vehicle.lastUpdated }}</TableCell>
             <TableCell> <Button size="sm">Locate</Button> </TableCell>
           </TableRow>

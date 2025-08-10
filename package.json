@@ -17,7 +17,6 @@
     "ant-design-vue": "^4.2.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "leaflet": "^1.9.4",
     "lucide-vue-next": "^0.539.0",
     "pinia": "^3.0.3",
     "reka-ui": "^2.4.1",
@@ -29,9 +28,11 @@
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "@types/leaflet": "^1.9.20",
     "@types/node": "^24.2.1",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/tsconfig": "^0.7.0",
+    "leaflet": "^1.9.4",
     "typescript": "~5.8.3",
     "vite": "^7.1.0",
     "vue-tsc": "^3.0.5"

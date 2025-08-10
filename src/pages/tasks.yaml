@@ -1,0 +1,85 @@
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+Task Objective 
+
+Build a Vue-based admin dashboard that visualizes the real-time locations of multiple vehicles 
+on a map. The application should include views for vehicle details and route history. 
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+1. Live Map View 
+
+Create an interactive map using Leaflet Maps or Google Maps to display multiple vehicles in real 
+time. 
+
+Functional Requirements: 
+
+● Marker color should reflect the vehicle status: 
+  Green: Online 
+  Gray: Offline 
+  Red: Alert 
+● Clicking a marker must display: 
+  ○ Vehicle name or plate 
+  ○ Status 
+  ○ Last updated timestamp 
+  ○ A "View History" button 
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+2. Vehicle Route History 
+When clicking "View History": 
+● Display a detailed route view of the selected vehicle. 
+● Show the route using mocked coordinates with a polyline. 
+● Visual elements must include: 
+○ Start and End markers 
+○ Distance covered 
+○ Average speed 
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+3. Vehicle List View 
+Implement a vehicle list table displaying the following fields: 
+
+● Last Location (Address) 
+● Last Update Time 
+Additional Features: 
+● Search by vehicle name or plate number 
+● Filter by status 
+● Clicking a row should zoom to the corresponding vehicle on the map 
+�
+�
+ Mock Data Structure 
+You may use a static JSON file or simulate real-time updates via polling/intervals. 
+Sample JSON: 
+json 
+CopyEdit 
+{ 
+} 
+} 
+"id": "v-001", 
+"name": "Truck 1", 
+"plate": "ABC-123", 
+"status": "online", 
+"type": "Truck", 
+"location": { "lat": 25.276987, "lng": 55.296249 }, 
+"lastUpdated": "2025-07-02T10:30:00Z", 
+"history": [ 
+{ "lat": 25.2769, "lng": 55.2961, "timestamp": "2025-07-02T09:30:00Z" 
+] 
+✅
+ Task Expectations 
+● Follow clean module architecture 
+● Apply state management where applicable 
+● Follow modern development best practices 
+● Use Vue 3 (recommended) with Composition API or Options API 
+�
+�
+ Submission Deadline 
+Deadline: Submit your completed assessment on/before 11 Aug, 10 AM 
+Please share your code in a Git repository (GitHub/GitLab/Bitbucket) or as a zip file. Let us know if 
+you have any questions or need further clarification. 
+Regards, 
+WioT360 Team 
