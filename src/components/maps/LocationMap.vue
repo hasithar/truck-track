@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import 'leaflet/dist/leaflet.css';
 import { computed, watch, ref } from 'vue';
-import { LMap, LTileLayer, LMarker, LPopup } from '@vue-leaflet/vue-leaflet';
+import { LMap, LTileLayer } from '@vue-leaflet/vue-leaflet';
 import { mapConfig } from '@/config';
 import type { Location, Vehicle } from '@/types';
+import VehicleMarker from './VehicleMarker.vue';
 
 const { zoom, center, vehicles, bounds } = defineProps<{
   zoom: number;
@@ -46,59 +47,7 @@ watch(
         :url="mapConfig.tileUrl"
         :attribution="mapConfig.attribution"
       />
-      <LMarker
-        v-for="v in vehicles"
-        :key="v.id"
-        :lat-lng="[v.location.lat, v.location.lng]"
-      >
-        <LPopup>
-          <strong>{{ v.name }}</strong>
-        </LPopup>
-      </LMarker>
+      <VehicleMarker v-for="v in vehicles" :key="v.id" :vehicle="v" />
     </LMap>
   </div>
 </template>
-
-<!-- <script lang="ts" setup>
-import 'leaflet/dist/leaflet.css';
-import { LMap, LTileLayer, LMarker, LPopup } from '@vue-leaflet/vue-leaflet';
-import { mapConfig } from '@/config';
-import type { Location } from '@/types';
-
-const { zoom, center, vehicles } = defineProps<{
-  zoom: number;
-  center: [number, number];
-  // bounds: Location[];
-  vehicles: any[];
-}>();
-console.log('🚀 ~ vehicles:', vehicles);
-
-// const boundsArray = bounds.map((loc) => [loc.lat, loc.lng] as [number, number]);
-</script>
-
-<template>
-  <div class="w-full h-full">
-    <LMap
-      style="height: 100%; width: 100%"
-      :zoom="zoom"
-      :center="center"
-      :use-global-leaflet="false"
-    >
-      <LTileLayer
-        :url="mapConfig.tileUrl"
-        :attribution="mapConfig.attribution"
-      />
-      <LMarker
-        v-for="v in vehicles"
-        :key="v.id"
-        :lat-lng="[v.location.lat, v.location.lng]"
-      >
-        <LPopup>
-          <strong>{{ v.name }}</strong>
-        </LPopup>
-      </LMarker>
-    </LMap>
-  </div>
-</template>
-
-<style scoped></style> -->

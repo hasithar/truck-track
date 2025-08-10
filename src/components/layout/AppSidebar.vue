@@ -39,7 +39,7 @@ const data = {
       items: [
         {
           title: 'List',
-          url: '/about',
+          url: '/list',
         },
       ],
     },
