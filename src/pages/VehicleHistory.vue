@@ -33,6 +33,7 @@ import {
 import { useRoute } from 'vue-router';
 import { useVehicleStore } from '@/store';
 import { storeToRefs } from 'pinia';
+import HistoryTimeline from '@/components/pages/dashboard/route/HistoryTimeline.vue';
 // Map state
 const zoom = ref(12);
 const center = ref<[number, number]>([mapConfig.base.lat, mapConfig.base.lng]);
@@ -69,7 +70,7 @@ const steps = [
 </script>
 
 <template>
-  <div class="flex gap-4">
+  <div class="flex gap-4 h-full">
     <div class="w-1/4">
       <div>
         <Card class="w-[350px]">
@@ -87,64 +88,13 @@ const steps = [
         </Card>
       </div>
 
-      <div>
-        <Stepper
-          orientation="vertical"
-          class="mx-auto flex w-full max-w-md flex-col justify-start gap-10"
-        >
-          <StepperItem
-            v-for="step in steps"
-            :key="step.step"
-            v-slot="{ state }"
-            class="relative flex w-full items-start gap-6"
-            :step="step.step"
-          >
-            <StepperSeparator
-              v-if="step.step !== steps[steps.length - 1].step"
-              class="absolute left-[18px] top-[38px] block h-[105%] w-0.5 shrink-0 rounded-full bg-muted group-data-[state=completed]:bg-primary"
-            />
-
-            <StepperTrigger as-child>
-              <Button
-                :variant="
-                  state === 'completed' || state === 'active'
-                    ? 'default'
-                    : 'outline'
-                "
-                size="icon"
-                class="z-10 rounded-full shrink-0"
-                :class="[
-                  state === 'active' &&
-                    'ring-2 ring-ring ring-offset-2 ring-offset-background',
-                ]"
-              >
-                <Check v-if="state === 'completed'" class="size-5" />
-                <Circle v-if="state === 'active'" />
-                <Dot v-if="state === 'inactive'" />
-              </Button>
-            </StepperTrigger>
-
-            <div class="flex flex-col gap-1">
-              <StepperTitle
-                :class="[state === 'active' && 'text-primary']"
-                class="text-sm font-semibold transition lg:text-base"
-              >
-                {{ step.title }}
-              </StepperTitle>
-              <StepperDescription
-                :class="[state === 'active' && 'text-primary']"
-                class="sr-only text-xs text-muted-foreground transition md:not-sr-only lg:text-sm"
-              >
-                {{ step.description }}
-              </StepperDescription>
-            </div>
-          </StepperItem>
-        </Stepper>
+      <div v-if="vehicle?.history.length">
+        <HistoryTimeline :history="vehicle?.history" />
       </div>
     </div>
 
     <div class="w-3/4">
-      <div class="w-full h-dvh rounded-2xl overflow-hidden">
+      <div class="w-full h-full rounded-2xl overflow-hidden">
         <RouteMap
           :zoom="zoom"
           :center="center"

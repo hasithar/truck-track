@@ -17,7 +17,7 @@ import { RouterView } from 'vue-router';
         <AppHeader />
 
         <!-- Page Content -->
-        <main class="flex-1 overflow-auto p-6">
+        <main class="flex-1 overflow-auto px-2 pt-1 pb-1">
           <RouterView />
         </main>
 
