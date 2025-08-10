@@ -40,7 +40,7 @@ const statusComponent = computed(() => {
 
 <template>
   <span
-    class="flex gap-1 items-center pl-0.5 text-white px-2 py-1 rounded-xl shadow-2xl"
+    class="flex gap-1 items-center pl-0.5 text-white px-2 py-1 rounded-xl shadow-2xl max-w-[70px] justify-between"
     :class="statusComponent.background"
   >
     <span

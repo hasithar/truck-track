@@ -4,7 +4,7 @@ import { computed, watch, ref } from 'vue';
 import { LMap, LTileLayer, LPolyline } from '@vue-leaflet/vue-leaflet';
 import { mapConfig } from '@/config';
 import type { Location, Vehicle } from '@/types';
-import VehicleMarker from './VehicleMarker.vue';
+import VehicleMarker from './mapui/VehicleMarker.vue';
 
 // const { zoom, center, vehicles, bounds } = defineProps<{
 //   zoom: number;
