@@ -40,7 +40,7 @@ const statusComponent = computed(() => {
 
 <template>
   <span
-    class="flex gap-1 items-center pl-0.5 text-white px-2 py-1 rounded-xl shadow-2xl max-w-[70px] justify-between"
+    class="flex gap-1 items-center pl-0.5 text-white px-2 py-1 rounded-xl shadow-2xl max-w-[75px] justify-between"
     :class="statusComponent.background"
   >
     <span
@@ -50,7 +50,7 @@ const statusComponent = computed(() => {
       <component :is="statusComponent.icon" class="size-3" />
     </span>
 
-    <span class="uppercase text-[0.65rem] font-semibold">{{ status }}</span>
+    <span class="uppercase text-xs font-semibold">{{ status }}</span>
   </span>
 </template>
 

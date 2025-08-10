@@ -20,7 +20,6 @@ time.
 2. Vehicle Route History 
 When clicking "View History": 
 ● Display a detailed route view of the selected vehicle. 
-● Show the route using mocked coordinates with a polyline. 
 ● Visual elements must include: 
 ○ Start and End markers 
 ○ Distance covered 
@@ -30,11 +29,9 @@ When clicking "View History":
 
 3. Vehicle List View 
 Implement a vehicle list table displaying the following fields: 
-● Last Update Time 
 Additional Features: 
 ● Search by vehicle name or plate number 
 ● Filter by status 
-● Clicking a row should zoom to the corresponding vehicle on the map 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 

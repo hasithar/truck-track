@@ -21,12 +21,13 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import Button from '@/components/ui/button/Button.vue';
-import { Truck, Car, Bus, Box, MapPin } from 'lucide-vue-next';
+import { Truck, Car, Bus, Box, MapPin, Locate } from 'lucide-vue-next';
 import { useVehicleStore } from '@/store';
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 import VehicleIcon from '@/components/common/VehicleIcon.vue';
 import VehicleStatusTag from '@/components/common/VehicleStatusTag.vue';
+import { DateTime } from 'luxon';
 
 // Setup store
 const vehicleStore = useVehicleStore();
@@ -49,7 +50,7 @@ const { vehicles } = storeToRefs(vehicleStore);
             <TableHead>Plate</TableHead>
             <TableHead>Vehicle Name</TableHead>
             <TableHead>Vehicle Type</TableHead>
-            <TableHead class="w-[100px]">Status</TableHead>
+            <TableHead class="w-[120px]">Status</TableHead>
             <TableHead>Last Location</TableHead>
             <TableHead>Last Updated</TableHead>
             <TableHead>Actions</TableHead>
@@ -95,22 +96,23 @@ const { vehicles } = storeToRefs(vehicleStore);
                 </span>
               </span>
             </TableCell>
-            <TableCell>{{ vehicle.lastUpdated }}</TableCell>
-            <TableCell> <Button size="sm">Locate</Button> </TableCell>
+            <TableCell
+              >{{
+                DateTime.fromISO(vehicle.lastUpdated).toFormat(
+                  'dd LLL yyyy, hh:mm:ss a'
+                )
+              }}
+            </TableCell>
+            <TableCell>
+              <RouterLink :to="`/route/${vehicle.id}`">
+                <Button size="sm" class="cursor-pointer hover:bg-slate-700"
+                  ><Locate :size="4" /> Locate</Button
+                >
+              </RouterLink>
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>
     </CardContent>
   </Card>
 </template>
-
-<!-- export interface Vehicle {
-  id: string;
-  name: string;
-  plate: string;
-  status: VehicleStatus;
-  type: VehicleType;
-  location: Location;
-  lastUpdated: DateString;
-  history: LocationEntry[];
-} -->
