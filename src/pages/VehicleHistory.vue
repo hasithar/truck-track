@@ -15,6 +15,8 @@ import { useRoute } from 'vue-router';
 import { useVehicleStore } from '@/store';
 import { storeToRefs } from 'pinia';
 import HistoryTimeline from '@/components/pages/route/HistoryTimeline.vue';
+import RouteInfo from '@/components/pages/route/RouteInfo.vue';
+import VehicleInfo from '@/components/pages/route/VehicleInfo.vue';
 
 // Map state
 const zoom = ref(12);
@@ -35,20 +37,15 @@ const vehicle = computed(() => vehicles.value.find((v) => v.id === vehicleId));
 <template>
   <div class="flex gap-4 h-full px-4 pb-4">
     <div class="w-1/4">
-      <div>
-        <Card class="w-[350px]">
-          <CardHeader>
-            <CardTitle>Create project {{ vehicleId }}</CardTitle>
-            <CardDescription
-              >Deploy your new project in one-click.</CardDescription
-            >
-          </CardHeader>
-          <CardContent> </CardContent>
-          <CardFooter class="flex justify-between px-6 pb-6">
-            <Button variant="outline"> Cancel </Button>
-            <Button>Deploy</Button>
-          </CardFooter>
-        </Card>
+      <div class="flex flex-col gap-4">
+        <VehicleInfo
+          v-if="vehicle?.id"
+          :name="vehicle.name"
+          :plate="vehicle.plate"
+          :type="vehicle.type"
+          :status="vehicle.status"
+        />
+        <RouteInfo />
       </div>
 
       <div v-if="vehicle?.history.length" class="mt-4">

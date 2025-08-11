@@ -20,7 +20,7 @@ const { selectedStatus } = storeToRefs(vehicleStore);
 
 <template>
   <div class="flex gap-2">
-    <Label class="text-sm whitespace-nowrap"
+    <Label class="text-sm whitespace-nowrap hidden xl:inline-flex"
       ><Funnel class="size-4 text-muted-foreground" /> Filter by Status</Label
     >
     <Select v-model="selectedStatus">

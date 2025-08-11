@@ -61,8 +61,8 @@ const filteredVehicles = computed(() => {
   <div class="px-4 pb-4">
     <Card class="w-full">
       <CardHeader>
-        <div class="flex justify-between">
-          <div>
+        <div class="flex flex-col md:flex-row justify-between">
+          <div class="mb-4 lg:mb-0">
             <CardTitle>All Vehicles</CardTitle>
             <CardDescription
               >Browse the complete list of registered vehicles.</CardDescription

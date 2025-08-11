@@ -44,7 +44,15 @@ defineProps<{
         <SidebarMenuItem>
           <CollapsibleTrigger as-child>
             <RouterLink :to="item.url">
-              <SidebarMenuButton :tooltip="item.title">
+              <SidebarMenuButton
+                :tooltip="item.title"
+                class="transition-all"
+                :class="[
+                  item.url &&
+                    item.url !== '#' &&
+                    'cursor-pointer hover:bg-slate-200',
+                ]"
+              >
                 <component :is="item.icon" v-if="item.icon" />
                 <span>{{ item.title }}</span>
                 <ChevronRight
@@ -60,7 +68,10 @@ defineProps<{
                 v-for="subItem in item.items"
                 :key="subItem.title"
               >
-                <SidebarMenuSubButton as-child>
+                <SidebarMenuSubButton
+                  as-child
+                  class="transition-all hover:bg-slate-200"
+                >
                   <RouterLink :to="subItem.url">
                     <span>{{ subItem.title }}</span>
                   </RouterLink>

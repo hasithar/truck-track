@@ -23,10 +23,6 @@ When clicking "View History":
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 3. Vehicle List View 
-Implement a vehicle list table displaying the following fields: 
-Additional Features: 
-● Search by vehicle name or plate number 
-● Filter by status 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -34,13 +30,12 @@ Task Expectations
 ● Follow clean module architecture 
 ● Apply state management where applicable 
 ● Follow modern development best practices 
-● Use Vue 3 (recommended) with Composition API or Options API 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 Submission Deadline 
 Deadline: Submit your completed assessment on/before 11 Aug, 10 AM 
-Please share your code in a Git repository (GitHub/GitLab/Bitbucket) or as a zip file. Let us know if 
+Please share your code in a Git repository (GitHub/GitLab/Bitbucket) or as a zip file.
 
 
 

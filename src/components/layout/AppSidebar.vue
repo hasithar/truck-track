@@ -18,9 +18,9 @@ const props = withDefaults(defineProps<SidebarProps>(), {
 
 const data = {
   user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
+    name: 'admin',
+    email: 'admin@truck-track.com',
+    avatar: '',
   },
 
   navMain: [
@@ -32,18 +32,14 @@ const data = {
       items: [],
     },
     {
-      title: 'Trucks',
+      title: 'Fleet',
       url: '#',
       icon: Truck,
       isActive: true,
       items: [
         {
-          title: 'List',
+          title: 'All Vehicles',
           url: '/list',
-        },
-        {
-          title: 'Route',
-          url: '/route',
         },
       ],
     },

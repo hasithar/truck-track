@@ -33,13 +33,13 @@ localSearch.value = searchQuery.value;
       id="search"
       type="text"
       placeholder="Search by Name / Plate"
-      class="pl-10"
+      class="pl-6 md:pl-8 lg:pl-8 placeholder:text-xs placeholder:md:text-sm"
       v-model="localSearch"
     />
     <span
-      class="absolute start-0 inset-y-0 flex items-center justify-center px-2"
+      class="absolute start-0 inset-y-0 flex items-center justify-center px-2 translate-y-0.5 md:-translate-y-1.5 lg:-translate-y-0"
     >
-      <Search class="size-4 text-muted-foreground" />
+      <Search class="size-3 text-muted-foreground md:size-4" />
     </span>
   </div>
 </template>
