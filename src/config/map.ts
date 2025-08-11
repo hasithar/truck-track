@@ -14,9 +14,3 @@ export const mapConfig: MapConfig = {
     lng: 54.3773,
   },
 };
-
-// Carto map
-// const tileUrl =
-('https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}{r}.png');
-// const attribution =
-('&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>');

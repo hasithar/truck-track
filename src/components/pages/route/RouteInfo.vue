@@ -39,6 +39,7 @@ const averageSpeed = computed(() => {
     <CardContent>
       <div class="flex justify-between relative">
         <LocationTag
+          v-if="history.length > 0"
           label="Origin"
           :lat="history[0].location.lat"
           :lng="history[0].location.lng"

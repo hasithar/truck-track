@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Truck, Car, Bus, Box, Ambulance, SquareDashed } from 'lucide-vue-next';
+import { Truck, Car, Bus, Ambulance, SquareDashed } from 'lucide-vue-next';
 import type { VehicleType } from '@/types';
 import { computed } from 'vue';
 
