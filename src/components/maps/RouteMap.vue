@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import 'leaflet/dist/leaflet.css';
-import { computed, watch, ref } from 'vue';
+import { computed, ref } from 'vue';
 import {
   LMap,
   LTileLayer,
