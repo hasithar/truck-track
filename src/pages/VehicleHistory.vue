@@ -1,13 +1,4 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
 import { mapConfig } from '@/config';
 import { computed, ref } from 'vue';
 import RouteMap from '@/components/maps/RouteMap.vue';
@@ -35,9 +26,9 @@ const vehicle = computed(() => vehicles.value.find((v) => v.id === vehicleId));
 </script>
 
 <template>
-  <div class="flex gap-4 h-full px-4 pb-4">
-    <div class="w-1/4">
-      <div class="flex flex-col gap-4">
+  <div class="flex flex-col lg:flex-row gap-4 h-full px-4 pb-4">
+    <div class="w-full lg:w-1/4">
+      <div class="flex flex-col md:flex-row lg:flex-col gap-4">
         <VehicleInfo
           v-if="vehicle?.id"
           :name="vehicle.name"
@@ -58,8 +49,8 @@ const vehicle = computed(() => vehicles.value.find((v) => v.id === vehicleId));
       </div>
     </div>
 
-    <div class="w-3/4">
-      <div class="w-full h-full rounded-2xl overflow-hidden">
+    <div class="w-full lg:w-3/4">
+      <div class="w-full h-full rounded-2xl overflow-hidden min-h-[320px]">
         <RouteMap
           :zoom="zoom"
           :center="center"

@@ -24,7 +24,7 @@ const { history } = defineProps<{
 </script>
 
 <template>
-  <ScrollArea class="h-[500px] w-full rounded-md border">
+  <ScrollArea class="h-[200px] lg:h-[410px] w-full rounded-md border">
     <div class="p-4">
       <h4 class="mb-8 text-sm font-medium leading-none">Route History</h4>
 

@@ -18,7 +18,7 @@ const { name, type, status, plate } = defineProps<{
 </script>
 
 <template>
-  <Card>
+  <Card class="w-full">
     <CardHeader>
       <CardTitle class="flex justify-between gap-4">
         <span class="inline-flex gap-2 items-center">
