@@ -45,7 +45,12 @@ const vehicle = computed(() => vehicles.value.find((v) => v.id === vehicleId));
           :type="vehicle.type"
           :status="vehicle.status"
         />
-        <RouteInfo />
+        <RouteInfo
+          v-if="vehicle?.id"
+          :location="vehicle.location"
+          :history="vehicle.history ?? []"
+          :last-updated="vehicle.lastUpdated"
+        />
       </div>
 
       <div v-if="vehicle?.history.length" class="mt-4">
