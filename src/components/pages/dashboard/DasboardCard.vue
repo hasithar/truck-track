@@ -64,28 +64,33 @@ const statusComponent = computed(() => {
 
 <template>
   <Card class="w-full">
-    <div class="flex justify-between">
+    <div class="flex flex-col xl:flex-row justify-between relative w-full">
       <CardHeader class="w-full">
         <CardTitle
-          ><span class="text-3xl font-bold">
+          ><span class="text-xl xl:text-3xl font-bold">
             {{ statusComponent.count ?? 0 }}</span
           >
           {{ title }}</CardTitle
         >
-        <CardDescription>{{ subtitle }}</CardDescription>
+        <CardDescription class="hidden xl:block">{{
+          subtitle
+        }}</CardDescription>
       </CardHeader>
       <CardContent>
         <div
-          class="flex aspect-square size-15 items-center justify-center shadow-slate-300 bg-gradient-to-br text-teal-600 p-1 rounded-lg shadow-[0_4px_12px_rgba(94,234,212,0.4)] border-1 border-slate-100"
+          class="absolute top-0 right-4 xl:right-0 xl:relative flex aspect-square size-8 xl:size-16 items-center justify-center shadow-slate-300 bg-gradient-to-br text-teal-600 p-1 rounded-lg shadow-[0_4px_12px_rgba(94,234,212,0.4)] border-1 border-slate-100"
           :class="statusComponent.gradient"
         >
           <component
             :is="statusComponent.icon"
-            class="size-8"
+            class="size-4 xl:size-8"
             :class="statusComponent.foreground"
           />
         </div>
       </CardContent>
+      <p class="block xl:hidden text-gray-600 text-xs py-0 px-6 mt-2 w-full">
+        {{ subtitle }}
+      </p>
     </div>
   </Card>
 </template>

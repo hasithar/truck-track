@@ -45,7 +45,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-1 flex-col gap-4 p-4 pt-0 h-full">
-    <div class="grid auto-rows-min gap-4 md:grid-cols-4 mb-2">
+    <div class="grid auto-rows-min gap-4 grid-cols-2 md:grid-cols-4 mb-2">
       <DashboardCard
         title="Vehicles"
         subtitle="Total fleet currently under monitoring"
